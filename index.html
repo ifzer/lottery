@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
-<title>游侠客5周年</title>
+<title>杉山二十周年年会</title>
 <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/screen.css">
 </head>
@@ -26,7 +26,7 @@
 					</fieldset>
 
 					<div class="list">
-						<p>神秘西藏之旅（可任意选择一条2014全年游侠客西藏专题线路）</p>
+						<p>欧洲游</p>
 						<ul class="win">
 							<li>
 								<div class="avatar"><img width="34" src="img/blank.gif"/></div>
@@ -46,7 +46,7 @@
 					</fieldset>
 
 					<div class="list">
-						<p>大美青海之旅（可任意选择一条2014全年游侠客青海湖-敦煌环线线路）</p>
+						<p>大美青海之旅</p>
 						<ul class="win">
 							<li class="none">
 								<div class="avatar"><img width="34" src="img/blank.gif"/></div>
@@ -66,7 +66,7 @@
 					</fieldset>
 
 					<div class="list">
-						<p>坝上草原之旅（可任意选择一条2014全年游侠客坝上草原线路 ）</p>
+						<p>坝上草原之旅</p>
 						<ul class="win">
 							<li class="none">
 								<div class="avatar"><img width="34" src="img/blank.gif"/></div>
@@ -86,7 +86,7 @@
 					</fieldset>
 
 					<div class="list">
-						<p>华东单日游（可任意选择一条2014全年游侠客独家华东单日游线路 ）</p>
+						<p>深圳一日游</p>
 						<ul class="win">
 							<li class="none">
 								<div class="avatar"><img width="34" src="img/blank.gif"/></div>
@@ -95,7 +95,7 @@
 								<button class="icon icon-delete" title="删除">删除</button>
 							</li>
 						</ul>
-						<code>0/15</code>
+						<code>0/4</code>
 					</div>
 				</div>
 
@@ -108,8 +108,9 @@
 			</div>
 
 			<div id="copyleft">
-				<div class="favicon">Y</div>
-				<div class="copyright">youxiake.com</div>
+				<div class="favicon">杉</div>
+				<div class="favicon">山</div>
+				<div class="copyright">www.shanshanhome.com</div>
 			</div>
 
 			<section id="content" class="clearfix">
@@ -122,7 +123,7 @@
 					</div>
 
 					<div class="counter">
-						<ul class="none"><li>*</li><li>*</li><li>*</li><li>*</li></ul>
+						<ul class="middle"><li>*</li><li>*</li><li>*</li><li>*</li></ul>
 					</div>
 
 					<div class="counter">
@@ -152,7 +153,7 @@
 			'49': { 'class': 'first',    'name': '一等奖', 'total': 1 },
 			'50': { 'class': 'second',   'name': '二等奖', 'total': 2 },
 			'51': { 'class': 'third',    'name': '三等奖', 'total': 3 },
-			'52': { 'class': 'grateful', 'name': '感恩奖', 'total': 15 }
+			'52': { 'class': 'grateful', 'name': '感恩奖', 'total': 10 }
 		},
 
 
@@ -190,12 +191,17 @@
 
 		//查询当前是否有中奖记录！
 		query: function( val ) {
+			var isZhongjiang = false;
 			for(var key in window.localStorage){
 				if( 'first|second|third|grateful'.indexOf(key) >= 0 ){
-					return config.get( key ).indexOf(val) >= 0
+					console.log('key=', key, 'keyval=', config.get( key ), 'val=', val)
+					if(config.get( key ).indexOf(val) >= 0){
+						isZhongjiang = true;
+						break;
+					}
 				}
 			}
-			return false
+			return isZhongjiang;
 		},
 
 		//清空设置
@@ -239,7 +245,8 @@
 
 			var newItem = selector.find('li:eq(0)').clone().removeAttr('class').attr({'data-num': num}).css({'margin-left': 300});
 
-			newItem.find('.num').html( data[ 'tel' ].replace(data[ 'tel' ].substr(3, 4), '****') );
+			// newItem.find('.num').html( data[ 'tel' ].replace(data[ 'tel' ].substr(3, 4), '****') );
+			newItem.find('.num').html( data[ 'tel' ] );
 			newItem.find('.avatar img').attr('src', data[ 'url' ]);
 			newItem.find('.name').html(data[ 'nick' ]);
 
@@ -252,8 +259,6 @@
 			setTimeout(function(){newItem.css({'margin-left': 0})}, 0)
 			
 			code.html( ratio.replace(/^\d+/, min + 1) );
-
-
 
 			newItem.one('click', 'button', function() {
 				var awards = newItem.parent().parent().parent('.active').attr('class').replace('active', '').replace(/^\s*|\s*$/g, '');
@@ -288,9 +293,8 @@
 		$('#copyleft').fadeOut();
 		$('#content, .trigger').addClass('active');
 
-
 		//空格控制
-		var action = $( '.counter ul:not(.none) li' ).filter(function( i ){ return i > 0 }),
+		var action = $( '.counter li' ).filter(function( i ){ return i > 0 }),
 			lock = true,
 			boot = Lucky( action );
 
@@ -301,7 +305,6 @@
 					lock = boot.aStart();
 				}else{
 					lock = boot.lottery();
-
 					console.log( $('.grateful li:not(.none)').length )
 					//当删除未领奖的时候，默认启用一次抽一次
 					config.awards == 'grateful' && taxis( $('.grateful li:not(.none)').length % 5 );
@@ -313,14 +316,15 @@
 		function taxis( i ) {
 			var i = i || 0;
 
-			setTimeout(function(){
-				if( ++i < 5 ) {
-					boot.aStart();
-					boot.lottery();
+			// 不使用自动抽
+			// setTimeout(function(){
+			// 	if( ++i < 5 ) {
+			// 		boot.aStart();
+			// 		boot.lottery();
 
-					taxis( i );
-				}
-			}, 2500)
+			// 		taxis( i );
+			// 	}
+			// }, 2500)
 		}
 
 	}
@@ -328,7 +332,6 @@
 	function Lucky( args ){
 		var args = args,
 			timers = [],
-
 			flicker = $('.flicker > img');
 
 		return {
@@ -340,15 +343,11 @@
 					var single = $( n );
 
 					if( single.data( 'bingo' ) == undefined ){
-
 						single.data( 'bingo',  Bingo( single ) );
-
 					}
 					
 					timers[ i ] = setTimeout(function(){
-						
 						single.data( 'bingo' ).start();
-
 					}, i * 150)
 				});
 
@@ -386,15 +385,15 @@
 				var lucky = this.randit();
 					value = [];
 
-				for(var i = 0; i < lucky.length; i++){
-					( i > 0 && i < 3 || i > 6 ) && value.push( lucky.charAt( i ) )
+				for(var i = 1; i < lucky.length; i++){
+					// ( i > 0 && i < 3 || i > 6 ) && value.push( lucky.charAt( i ) );
+					value.push(lucky.charAt(i))
 				}
 				
 				$.each(args, function(i, n){
 					var single = $( n ),
 						bingo = single.data( 'bingo' );
-
-					bingo.endTo( ~~value[ i ], i * 200, !i )
+					bingo.endTo( ~~value[ i ], i * 40, !i );
 				})
 
 				return !0;
@@ -410,16 +409,12 @@
 				if( config.query(result) ){
 					return this.randit();
 				}
-
 				//html5存储序列号
 				config.setCur( result );
-
 				setTimeout(function(){
 					//停止头像
 					clearTimeout( timers[ args.length ] );
-
 					flicker.attr('src', dataSource[ result ][ 'url' ]);
-
 					config.appear( $('.' +  config.awards), result )
 				}, 1000)
 
@@ -431,11 +426,8 @@
 			 */
 			avatar: function() {
 				var result = Math.round( Math.random() * config.total + .5 ) - 1;
-
 					url = dataSource[ result ][ 'url' ];
-
 				flicker.attr('src', url);
-
 				timers[ args.length ] = setTimeout(arguments.callee, 100)
 			}
 		}
@@ -447,12 +439,12 @@
 	 * arg $对象
 	 */
 	function Bingo( arg ) {
-		var code = '3458', //网络识别号 [ 2 ]{ 3, 4, 5, 8 }
+		var code = '3456789', //网络识别号 [ 2 ]{ 3, 4, 5, 8 }
 						   //RegExp( /^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}$/ )
-
 			loop = 0,      //循环次数
 			running = 0,   //0 - 9
 			timer = null;  //控制摇动时间
+
 
 		/*
 		 * 增加随机步数selfAuto
@@ -461,7 +453,6 @@
 		 */
 		function selfAuto() {
 			running += ~~( Math.random() * 10 );
-
 			format();
 		}
 
@@ -497,26 +488,27 @@
 
 				timer = timer || 200;
 
-				//网络识别号 [ 2 ]{ 3, 4, 5, 8 }
+				// 后10位手机号
 				if( arguments[2] != undefined && arguments[2] ) {
-					var to = code.indexOf( num ),
-						from = ( 10 * loop + running ) % 4;
+				// 	var to = code.indexOf( num ),
+				// 		from = ( 10 * loop + running );
+				// 		// % 4
 					
-					if( to >= from ) {
-						running += to - from;
-					} else {
-						running += 4 + to - from;
-					}
-					
+				// 	if( to >= from ) {
+				// 		running += to - from;
+				// 	} else {
+				// 		running += to - from;
+				// 	}
+				
+					running = num;
 					format();
-				} else {
+				} 
+				else {
 					if( num < running ) {
 						loop ++;
 					}
 					running = num;
 				}
-				
-
 				arg.animate({
 					'background-position-y': -120 * ( 10 * loop + running  )
 				}, timer)
@@ -569,19 +561,14 @@
 			var k = config.keycode[ e.keyCode ];
 			if( !!k ) {
 				config.awards = k.class;
-
 				$('.' + config.awards).addClass('active').siblings().removeClass('active')
-
 				//background
-
 			} else if (e.keyCode == 48){
 				config.awards = 'grateful';
 
 				$('.board > div').addClass('active');
 			} else if (e.ctrlKey && e.keyCode == 46) {
-
 				config.clear();
-
 				window.location.reload()
 			}
 		})

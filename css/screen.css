@@ -480,7 +480,7 @@ legend:after{
  */
 #copyleft{
 	position: fixed;
-	top: 50%;
+	top: 25%;
 	left: 50%;
 	z-index: 99999;
 
@@ -494,8 +494,8 @@ legend:after{
 
 	width: 100px;
 	height: 100px;  
-	margin-left: -45px;
-	margin-top: -50px;
+	margin-left: -55px;
+	margin-top: 28px; 
 
 	-webkit-transform: scale(.9, .9);
 	   -moz-transform: scale(.9, .9);
@@ -507,7 +507,7 @@ legend:after{
 	content: '';
   	display: block;
 
-	margin-left: -15px;
+	margin-left: -10px;
 	margin-top: -130px;
 
 	width: 100px;
@@ -519,10 +519,10 @@ legend:after{
 }
 
 .copyright{
-	width: 200px;
-	height: 35px;
-	margin-top: 20px;
-	margin-left: -90px;
+	width: 320px;
+	height: 94px;
+	margin-top: 50px;
+	margin-left: -150px;
 	line-height: 200px;
 	overflow: hidden;
 
@@ -531,11 +531,11 @@ legend:after{
 
 #copyleft.active{
 	display: block;
-
+/* 
 	-webkit-animation: loader-in .6s;
 	   -moz-animation: loader-in .6s;
 	    -ms-animation: loader-in .6s;
-	        animation: loader-in .6s;
+	        animation: loader-in .6s; */
 }
 
 #copyleft.active .favicon{
@@ -553,10 +553,10 @@ legend:after{
 }
 
 #copyleft.active .copyright{
-	-webkit-animation: sign-anim 2s 1s steps(30) forwards;
+	/* -webkit-animation: sign-anim 2s 1s steps(30) forwards;
 	   -moz-animation: sign-anim 2s 1s steps(30) forwards;
 	     -o-animation: sign-anim 2s 1s steps(30) forwards;
-	        animation: sign-anim 2s 1s steps(30) forwards;
+	        animation: sign-anim 2s 1s steps(30) forwards; */
 }
 
 @-webkit-keyframes loader-in {
@@ -890,10 +890,15 @@ legend:after{
 }
 
 .counter .prefix li:nth-child(2) {
-	background: url(../img/num3458.png) repeat-y;
+	/* background: url(../img/num3458.png) repeat-y; */
+	background: url(../img/num0-9.png) repeat-y;
 }
 
 .counter .prefix li:nth-child(3) {
+	background: url(../img/num0-9.png) repeat-y;
+}
+
+.counter .middle li {
 	background: url(../img/num0-9.png) repeat-y;
 }
 
